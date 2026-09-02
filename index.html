@@ -1,15 +1,821 @@
 <!DOCTYPE html>
-<html>
+<html lang="th">
 <head>
-<title>Page Title</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NovaFlow | Smart Productivity</title>
+  <style>
+    :root {
+      --primary: #0b6ef5;
+      --primary-dark: #0a4fcf;
+      --primary-soft: #eaf3ff;
+      --text: #16314d;
+      --muted: #67809b;
+      --bg: #f5f9ff;
+      --white: #ffffff;
+      --border: rgba(11, 110, 245, 0.12);
+      --shadow: 0 18px 40px rgba(16, 62, 120, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(180deg, #f6fbff 0%, #edf6ff 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 20px;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--text);
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--primary), #77b3ff);
+      display: grid;
+      place-items: center;
+      color: var(--white);
+      box-shadow: var(--shadow);
+      font-size: 1.1rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav-menu a:hover {
+      color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 0.9rem 1.4rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      box-shadow: 0 12px 24px rgba(11, 110, 245, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--primary);
+      border: 1px solid rgba(11, 110, 245, 0.15);
+    }
+
+    .hero {
+      padding: 72px 0 48px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 42px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.4rem);
+      line-height: 1.08;
+      margin: 0 0 20px;
+      letter-spacing: -0.05em;
+      color: var(--text);
+    }
+
+    .hero p {
+      font-size: 1.06rem;
+      color: var(--muted);
+      margin: 0 0 30px;
+      max-width: 610px;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .stats-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 26px;
+    }
+
+    .stat-item {
+      min-width: 120px;
+    }
+
+    .stat-item strong {
+      display: block;
+      font-size: 1.7rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .stat-item span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 480px;
+    }
+
+    .product-card {
+      position: relative;
+      width: min(100%, 480px);
+      background: linear-gradient(180deg, #f5faff 0%, #dfeeff 100%);
+      border: 1px solid rgba(11,110,245,0.08);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 22px;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -40px;
+      top: -50px;
+      border-radius: 50%;
+      background: rgba(19, 117, 255, 0.12);
+    }
+
+    .screen {
+      position: relative;
+      z-index: 1;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 20px 18px 18px;
+      border: 1px solid rgba(11,110,245,0.08);
+    }
+
+    .screen-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d9e7ff;
+      display: inline-block;
+    }
+
+    .dots span:nth-child(1) { background: #ffb7b7; }
+    .dots span:nth-child(2) { background: #ffd8a8; }
+    .dots span:nth-child(3) { background: #a9f5c9; }
+
+    .mini-badge {
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .chart-box {
+      background: linear-gradient(180deg, #edf5ff 0%, #f9fbff 100%);
+      border: 1px solid rgba(11,110,245,0.08);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: end;
+      gap: 10px;
+      height: 110px;
+      margin-top: 18px;
+    }
+
+    .bar-chart span {
+      display: block;
+      width: 18%;
+      border-radius: 10px 10px 0 0;
+      background: linear-gradient(180deg, #94c5ff 0%, var(--primary) 100%);
+    }
+
+    .bar-chart span:nth-child(1) { height: 40%; }
+    .bar-chart span:nth-child(2) { height: 60%; }
+    .bar-chart span:nth-child(3) { height: 80%; }
+    .bar-chart span:nth-child(4) { height: 70%; }
+    .bar-chart span:nth-child(5) { height: 95%; }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .summary-box {
+      background: #f6faff;
+      border: 1px solid rgba(11,110,245,0.08);
+      border-radius: 16px;
+      padding: 12px;
+    }
+
+    .summary-box strong {
+      display: block;
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .summary-box span {
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .floating-badge {
+      position: absolute;
+      background: var(--white);
+      border: 1px solid rgba(11,110,245,0.08);
+      box-shadow: var(--shadow);
+      border-radius: 18px;
+      padding: 14px 16px;
+      right: -10px;
+      bottom: 50px;
+      z-index: 2;
+    }
+
+    .floating-badge strong {
+      display: block;
+      font-size: 1.3rem;
+      color: var(--text);
+    }
+
+    .floating-badge span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    main {
+      padding: 20px 0 30px;
+    }
+
+    .section {
+      padding: 36px 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      margin: 0 0 10px;
+      letter-spacing: -0.04em;
+    }
+
+    .section-header p {
+      margin: 0 auto;
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px 22px;
+      box-shadow: 0 10px 22px rgba(18, 55, 96, 0.04);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 30px rgba(18, 55, 96, 0.08);
+    }
+
+    .icon-wrap {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #e7f1ff 0%, #d7ebff 100%);
+      color: var(--primary);
+      font-size: 1.7rem;
+      margin-bottom: 18px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.35rem;
+      margin: 0 0 10px;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .highlight-panel {
+      background: linear-gradient(135deg, #0a6bf5 0%, #0f4ebd 100%);
+      color: var(--white);
+      border-radius: 30px;
+      padding: 34px 30px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+    }
+
+    .highlight-panel::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      right: -30px;
+      top: -70px;
+    }
+
+    .highlight-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .highlight-panel h3 {
+      margin: 0 0 12px;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      letter-spacing: -0.04em;
+    }
+
+    .highlight-panel p {
+      margin: 0;
+      max-width: 620px;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .mini-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .mini-list span {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .cta-box {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 18px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .cta-box strong {
+      display: block;
+      font-size: 2.2rem;
+      margin-bottom: 6px;
+    }
+
+    .cta-box span {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      background: #edf5ff;
+      border-top: 1px solid var(--border);
+      padding: 40px 0 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 26px;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      margin: 14px 0 0;
+      max-width: 300px;
+    }
+
+    .footer-column h4 {
+      margin: 0 0 14px;
+      font-size: 1rem;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .footer-bottom {
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(11,110,245,0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .highlight-inner,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 12px 0;
+      }
+
+      .nav-menu {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .nav-actions {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      h1 {
+        letter-spacing: -0.04em;
+      }
+
+      .cta-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .summary-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">
+        <span class="logo-mark">N</span>
+        NovaFlow
+      </a>
 
-<h1>Saharat tabunma</h1>
-<p>web1.0</p>
+      <nav class="nav-menu">
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">Pricing</a>
+        <a href="#">Reviews</a>
+        <a href="#">Contact</a>
+      </nav>
 
+      <div class="nav-actions">
+        <a href="#" class="btn btn-secondary">Log in</a>
+        <a href="#" class="btn btn-primary">Get Started</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">SMART WORKFLOW FOR MODERN TEAMS</span>
+        <h1>Turn big ideas into real momentum.</h1>
+        <p>
+          NovaFlow helps businesses streamline operations, automate daily tasks,
+          and collaborate with clarity through one powerful platform built for speed.
+        </p>
+
+        <div class="cta-row">
+          <a href="#" class="btn btn-primary">Start Free Trial</a>
+          <a href="#" class="btn btn-secondary">Watch Demo</a>
+        </div>
+
+        <div class="stats-inline">
+          <div class="stat-item">
+            <strong>12k+</strong>
+            <span>Active users</span>
+          </div>
+          <div class="stat-item">
+            <strong>4.9/5</strong>
+            <span>User rating</span>
+          </div>
+          <div class="stat-item">
+            <strong>87%</strong>
+            <span>Faster delivery</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="product-card">
+          <div class="screen">
+            <div class="screen-top">
+              <div class="dots">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span class="mini-badge">Live Overview</span>
+            </div>
+
+            <div class="chart-box">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <strong style="font-size:1.1rem;">Performance</strong>
+                <span style="color:#67809b; font-size:0.75rem;">This month</span>
+              </div>
+
+              <div class="bar-chart">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+
+            <div class="summary-row">
+              <div class="summary-box">
+                <strong>2.4x</strong>
+                <span>Growth</span>
+              </div>
+              <div class="summary-box">
+                <strong>94%</strong>
+                <span>Efficiency</span>
+              </div>
+              <div class="summary-box">
+                <strong>1.8k</strong>
+                <span>Tasks</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-badge">
+          <strong>+38%</strong>
+          <span>Productivity boost</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Built for teams that move fast</h2>
+          <p>
+            Everything you need to manage projects, automate workflows, and grow consistently
+            without sacrificing clarity or control.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="icon-wrap">⚡</div>
+            <h3>Automation</h3>
+            <p>
+              Reduce repetitive work with intelligent automations that handle routine updates,
+              scheduling, and reporting in real time.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-wrap">📊</div>
+            <h3>Analytics</h3>
+            <p>
+              Track performance with actionable dashboards that turn key metrics into decisions
+              your team can act on immediately.
+            </p>
+          </article>
+
+          <article class="feature-card">
+            <div class="icon-wrap">🔒</div>
+            <h3>Security</h3>
+            <p>
+              Protect business data with secure access controls, enterprise-grade encryption,
+              and trusted workflows from day one.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="highlight-panel">
+          <div class="highlight-inner">
+            <div>
+              <h3>Everything your team needs in one place</h3>
+              <p>
+                From project management to communication and reporting, NovaFlow centralizes your
+                work so teams stay aligned and focused on what matters most.
+              </p>
+
+              <div class="mini-list">
+                <span>Task Tracking</span>
+                <span>Smart Reports</span>
+                <span>Team Collaboration</span>
+                <span>Workflow Automation</span>
+              </div>
+            </div>
+
+            <div class="cta-box">
+              <strong>3x</strong>
+              <span>Faster team execution</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <span class="logo-mark">N</span>
+            NovaFlow
+          </a>
+          <p>
+            Empowering modern teams to plan smarter, move faster, and deliver results with confidence.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Product</h4>
+          <ul>
+            <li>Features</li>
+            <li>Pricing</li>
+            <li>Integrations</li>
+            <li>Templates</li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Company</h4>
+          <ul>
+            <li>About</li>
+            <li>Blog</li>
+            <li>Careers</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li>Help Center</li>
+            <li>Documentation</li>
+            <li>Community</li>
+            <li>Privacy</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 NovaFlow. All rights reserved.</span>
+        <span>Privacy Policy · Terms of Service</span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
-
-
 
